@@ -1,0 +1,9 @@
+.movies-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+.movies-list__item {
+  height: 336px;
+}

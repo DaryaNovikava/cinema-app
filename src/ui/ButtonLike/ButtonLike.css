@@ -1,0 +1,28 @@
+.btn-like {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  width: 68px;
+  padding: 16px;
+  border-radius: 28px;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  background-color: #333;
+  transition:
+    0.3s background-color ease-in-out,
+    0.3s stroke ease-in-out;
+}
+
+.btn-like:hover {
+  transform: scale(1.08, 1.08);
+  transition: transform 1s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.btn-like__image {
+  width: 24px;
+}
+
+.btn-like:hover svg {
+  fill: #000000;
+}

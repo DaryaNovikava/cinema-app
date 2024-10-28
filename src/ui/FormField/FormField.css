@@ -1,0 +1,22 @@
+.form-field {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+  width: 100%;
+}
+
+.form-field:last-child {
+  margin-bottom: 12px;
+}
+
+.form-field__label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #000000;
+}
+
+.form-field__error-text {
+  color: red;
+  font-size: 12px;
+}

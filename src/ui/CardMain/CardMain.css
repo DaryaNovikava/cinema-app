@@ -1,0 +1,83 @@
+.card {
+  margin: 0;
+  display: flex;
+  margin-bottom: 24px;
+  width: 224px;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 16px;
+  border: 1px rgba(255, 255, 255, 0.25);
+  box-shadow: 0px 0px 80px 0px rgba(255, 255, 255, 0.33);
+  position: relative;
+  transition:
+    outline 0.3s ease-in-out,
+    opacity 0.3s ease-in-out;
+}
+
+.card_link {
+  height: 100%;
+}
+
+.card_image {
+  margin: 0;
+  object-fit: cover;
+  border-radius: 16px;
+  height: 100%;
+}
+
+.remove_button {
+  position: absolute;
+  top: -18px;
+  right: -18px;
+  width: 40px;
+  height: 40px;
+  border-radius: 30px;
+  border: none;
+  background-color: #ffffff;
+  background-image: url(../../assets/images/close-icon.svg);
+  background-repeat: no-repeat;
+  background-size: 24px;
+  background-position: center center;
+  cursor: pointer;
+  display: none;
+  opacity: 0;
+}
+
+.card:hover {
+  outline: 1px solid #ffffff;
+  transform: scale(1.03, 1.03);
+  transition: transform 1s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.card:hover .remove_button {
+  display: block;
+  opacity: 1;
+}
+
+.card_title {
+  margin: 0;
+  margin-bottom: 5px;
+}
+
+.card_description {
+  margin: 0;
+  margin-bottom: 10px;
+  color: #91520f;
+}
+
+.card_rating {
+  display: flex;
+}
+
+.card_rating_stars {
+  width: 20px;
+  transition:
+    transform 0.2s,
+    filter 0.2s;
+}
+
+.card_rating_stars:hover {
+  transform: scale(1.2);
+  filter: brightness(1.2);
+}

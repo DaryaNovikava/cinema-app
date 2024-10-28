@@ -1,0 +1,13 @@
+.section-top {
+  display: flex;
+  flex-direction: column;
+  padding-top: 40px;
+}
+
+.section__title {
+  margin: 0;
+  margin-bottom: 64px;
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 48px;
+}

@@ -1,0 +1,40 @@
+
+.hero-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.hero-info_text {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 24px;
+  color: #ffffff;
+  opacity: 0.7;
+}
+
+.movie-preview {
+  display: flex;
+  gap: 16px;
+  padding: 20px 8px;
+}
+
+.movie-preview__poster {
+  width: 40px;
+  height: 52px;
+}
+
+.movie-preview__text {
+  font-size: 18px;
+font-style: normal;
+font-weight: 700;
+line-height: 24px;
+}
+
+.movie-preview__title {
+  font-size: 18px;
+font-style: normal;
+font-weight: 700;
+line-height: 24px;
+}
+

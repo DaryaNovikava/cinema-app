@@ -1,0 +1,27 @@
+.user-view {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background-color: var(--primary);
+  border-radius: 8px;
+}
+
+.user-view__name {
+  font-size: 14px;
+  white-space: pre-wrap;
+  font-weight: 600;
+  color: white;
+}
+
+.user-view__logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  font-size: 24px;
+  color: var(--primary);
+  border-radius: 50%;
+  font-weight: 600;
+  background-color: rgba(255, 255, 255, 0.5);
+}
