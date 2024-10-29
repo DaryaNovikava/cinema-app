@@ -18,7 +18,7 @@ export const MovieSchema = z.object({
   revenue: z.string().nullish(),
   homepage: z.string(),
   status: z.string(),
-  posterUrl: z.string().optional(),
+  posterUrl: z.string().nullable().optional(),
   backdropUrl: z.string().nullish(),
   trailerUrl: z.string(),
   trailerYoutubeId: z.string().nullish(),
@@ -47,8 +47,11 @@ export function fetchMoviesData<T>(
   return fetch(url)
     .then(validateResponse)
     .then((response) => response.json())
-    .then((data) => schema.parse(data))
+    .then((data) => {
+      return schema.parse(data);
+    })
     .catch((error) => {
+      console.error('Ошибка при запросе или парсинге данных:', error);
       throw new Error(
         `Ошибка при запросе или парсинге данных: ${error.message}`,
       );

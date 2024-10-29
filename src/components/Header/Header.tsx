@@ -1,52 +1,33 @@
 import './header.css';
 import SearchInput from '../../ui/SearchInput/SearchInput';
-import {
-  useMoviesData,
-  MovieList,
-  API_URL,
-  MovieListSchema,
-} from '../../api/Movie';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import logo from '../../assets/images/logo.svg';
+import { MovieList } from '../../api/Movie';
 import { Link, useNavigate } from 'react-router-dom';
 import SearchResults from '../SearchResults/SearchResults';
 import Modal from '../Modal/Modal';
 import { useAuth } from '../../contexts/AuthContext';
 import { useModal } from '../../hooks/useModal';
 
-const Header: React.FC = () => {
-  const [searchMovie, setSearchMovie] = useState<string>('');
-  const [searchResults, setSearchResults] = useState<MovieList>([]);
-  const [isResultsVisible, setResultsVisible] = useState<boolean>(false);
+interface HeaderProps {
+  searchMovie: string;
+  onSearchMovie: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  isResultsVisible: boolean;
+  searchResults: MovieList;
+}
+
+const Header: React.FC<HeaderProps> = ({
+  searchMovie,
+  onSearchMovie,
+  isResultsVisible,
+  searchResults,
+}) => {
   const { user, isLogged } = useAuth();
   const { isModalOpen, openModal, closeModal } = useModal();
   const navigate = useNavigate();
 
-  const { data: movies } = useMoviesData<MovieList>(
-    API_URL + 'movie/',
-    MovieListSchema,
-  );
-
-  useEffect(() => {
-    if (searchMovie.trim() !== '' && movies) {
-      const filteredMovies = movies.filter((movie) =>
-        movie.title.toLowerCase().includes(searchMovie.toLowerCase()),
-      );
-      setSearchResults(filteredMovies);
-      setResultsVisible(true);
-    } else {
-      setResultsVisible(false);
-    }
-  }, [searchMovie, movies]);
-
-  const handleSearchMovie = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchMovie(event.target.value);
-  };
-
   const handleSelectMovie = (id: number) => {
     navigate(`/movie/${id}`);
-    setResultsVisible(false);
-    setSearchMovie('');
   };
 
   const handleLoginClick = () => {
@@ -88,7 +69,7 @@ const Header: React.FC = () => {
           </ul>
         </nav>
         <div className="search-wrapper">
-          <SearchInput value={searchMovie} onChange={handleSearchMovie} />
+          <SearchInput value={searchMovie} onChange={onSearchMovie} />
           {isResultsVisible && (
             <SearchResults
               results={searchResults}
