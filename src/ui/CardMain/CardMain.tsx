@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 type CardProps = {
   id: number;
   originalTitle: string;
-  posterUrl: string | undefined;
+  posterUrl: string | null | undefined;
   onRemove?: (id: number) => void;
   showRemoveButton?: boolean;
 };

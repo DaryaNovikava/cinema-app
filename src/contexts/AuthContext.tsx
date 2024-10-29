@@ -1,7 +1,14 @@
-import React, { createContext, useContext, useState, FC } from 'react';
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  FC,
+} from 'react';
 import { User } from '../api/User';
+import { fetchProfile } from '../api/User';
 import { useMutation } from '@tanstack/react-query';
-import { logout as logoutApi, loginUser as loginApi } from '../api/User';
+import { logout as logoutApi } from '../api/User';
 import { queryClient } from '../api/queryClient';
 
 interface AuthContextType {
@@ -19,6 +26,18 @@ export const AuthProvider: FC<{ children: React.ReactNode }> = ({
 }) => {
   const [user, setUser] = useState<User | null>(null);
   const [isLogged, setIsLogged] = useState<boolean>(false);
+
+  useEffect(() => {
+    fetchProfile()
+      .then((fetchedUser) => {
+        setUser(fetchedUser);
+        setIsLogged(true);
+      })
+      .catch((error) => {
+        console.error('Не удалось восстановить сессию:', error);
+        setIsLogged(false);
+      });
+  }, []);
 
   const login = (user: User) => {
     if (user) {
