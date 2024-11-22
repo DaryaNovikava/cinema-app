@@ -11,6 +11,18 @@
   height: 465px;
   overflow-y: auto;
   overflow-x: hidden;
-  background-color: #393B3C;
+  background-color: #393b3c;
   z-index: 500;
+}
+
+@media (max-width: 1367px) {
+  .search-wrapper {
+    max-width: 420px;
+  }
+}
+
+@media (max-width: 1240px) {
+  .search-wrapper {
+    max-width: 320px;
+  }
 }

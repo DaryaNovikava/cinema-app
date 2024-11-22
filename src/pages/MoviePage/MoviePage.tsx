@@ -1,5 +1,5 @@
-import { useParams } from "react-router-dom";
-import { SectionAboutMovie } from "../../components/SectionAboutMovie/SectionAboutMovie";
+import { useParams } from 'react-router-dom';
+import { SectionAboutMovie } from '../../components/SectionAboutMovie/SectionAboutMovie';
 
 const MoviePage: React.FC = () => {
   const { movieId } = useParams<{ movieId: string }>();
@@ -11,6 +11,7 @@ const MoviePage: React.FC = () => {
         hideAboutButton={true}
         hideUpdateButton={true}
         hideMovieInfo={false}
+        isMoviePage={true}
       />
     </div>
   );

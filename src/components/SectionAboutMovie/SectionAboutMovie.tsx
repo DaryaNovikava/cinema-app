@@ -20,6 +20,7 @@ interface SectionAboutMovieProps {
   hideAboutButton?: boolean;
   hideUpdateButton?: boolean;
   hideMovieInfo?: boolean;
+  isMoviePage?: boolean;
 }
 
 export const SectionAboutMovie: React.FC<SectionAboutMovieProps> = ({
@@ -27,6 +28,7 @@ export const SectionAboutMovie: React.FC<SectionAboutMovieProps> = ({
   hideAboutButton,
   hideUpdateButton,
   hideMovieInfo,
+  isMoviePage,
 }) => {
   const navigate = useNavigate();
   const fetchUrl = movieId
@@ -39,7 +41,7 @@ export const SectionAboutMovie: React.FC<SectionAboutMovieProps> = ({
     refetch,
   } = useMoviesData<Movie>(fetchUrl, MovieSchema);
   const runtimeMovie = movie?.runtime;
-  const [isTrailerOpen, setIsTrailerOpen] = useState(false); // Состояние для модального окна
+  const [isTrailerOpen, setIsTrailerOpen] = useState(false);
   const [isImageLoaded, setIsImageLoaded] = useState(false);
 
   useEffect(() => {
@@ -61,7 +63,6 @@ export const SectionAboutMovie: React.FC<SectionAboutMovieProps> = ({
   const handleTrailerClick = () => {
     if (movie?.trailerUrl) {
       setIsTrailerOpen(true);
-      console.log(movie.trailerUrl);
     }
   };
 
@@ -80,7 +81,7 @@ export const SectionAboutMovie: React.FC<SectionAboutMovieProps> = ({
           <Loader />
         </div>
       ) : isError ? (
-        <div>Error fetching movie</div>
+        <div className="container">Error fetching movie</div>
       ) : movie ? (
         <div className="container container_movie">
           <div className="hero-preview">
@@ -95,7 +96,9 @@ export const SectionAboutMovie: React.FC<SectionAboutMovieProps> = ({
               </div>
               <h1 className="hero__title">{movie.title}</h1>
               <p className="hero__descr">{movie.plot}</p>
-              <div className="hero__buttons">
+              <div
+                className={`hero__buttons ${isMoviePage ? 'hero__buttons--movie-page' : 'hero__buttons--main-page'}`}
+              >
                 <Button
                   type="button"
                   kind="primary"
@@ -121,14 +124,7 @@ export const SectionAboutMovie: React.FC<SectionAboutMovieProps> = ({
               </div>
             </div>
 
-            <div
-              className="hero-img-container"
-              style={{
-                position: 'relative',
-                width: '900px',
-                height: '100%',
-              }}
-            >
+            <div className="hero-img-container">
               {movie && !isImageLoaded && (
                 <div
                   style={{

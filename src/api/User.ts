@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { validateResponse } from './validateResponce';
 import { API_URL } from './Movie';
+import { useQuery } from '@tanstack/react-query';
 
 export const UserSchema = z.object({
   name: z.string(),
@@ -44,6 +45,13 @@ export function fetchProfile(): Promise<User> {
       console.error('Ошибка при получении профиля:', error);
       throw error;
     });
+}
+
+export function useUserProfile() {
+  return useQuery<User>({
+    queryKey: ['userProfile'],
+    queryFn: fetchProfile,
+  });
 }
 
 // Авторизация пользователя

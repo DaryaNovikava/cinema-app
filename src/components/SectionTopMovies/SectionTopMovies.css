@@ -11,3 +11,27 @@
   font-weight: 700;
   line-height: 48px;
 }
+
+.swiper-wrapper {
+  padding-top: 60px;
+  padding-left: 30px;
+}
+
+.swiper-slide {
+  width: 273px !important;
+}
+
+.swiper-button-next {
+  visibility: hidden;
+}
+
+.swiper-button-prev {
+  visibility: hidden;
+}
+
+@media (max-width: 768px) {
+  .section__title {
+    margin-bottom: 12px;
+    font-size: 24px;
+  }
+}

@@ -1,12 +1,11 @@
 import React, {
   createContext,
   useContext,
-  useEffect,
   useState,
+  useEffect,
   FC,
 } from 'react';
-import { User } from '../api/User';
-import { fetchProfile } from '../api/User';
+import { User, useUserProfile } from '../api/User';
 import { useMutation } from '@tanstack/react-query';
 import { logout as logoutApi } from '../api/User';
 import { queryClient } from '../api/queryClient';
@@ -27,17 +26,17 @@ export const AuthProvider: FC<{ children: React.ReactNode }> = ({
   const [user, setUser] = useState<User | null>(null);
   const [isLogged, setIsLogged] = useState<boolean>(false);
 
+  const { data, isError } = useUserProfile();
+
   useEffect(() => {
-    fetchProfile()
-      .then((fetchedUser) => {
-        setUser(fetchedUser);
-        setIsLogged(true);
-      })
-      .catch((error) => {
-        console.error('Не удалось восстановить сессию:', error);
-        setIsLogged(false);
-      });
-  }, []);
+    if (data) {
+      setUser(data);
+      setIsLogged(true);
+    } else if (isError) {
+      setUser(null);
+      setIsLogged(false);
+    }
+  }, [data, isError]);
 
   const login = (user: User) => {
     if (user) {
@@ -53,7 +52,6 @@ export const AuthProvider: FC<{ children: React.ReactNode }> = ({
       onSuccess() {
         setUser(null);
         setIsLogged(false);
-        localStorage.removeItem('token');
         queryClient.invalidateQueries({ queryKey: ['users', 'me'] });
       },
       onError: (error: any) => {
