@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
 import './FetchGenreMoviesList.css';
+import React, { useEffect } from 'react';
 import { MovieList, MovieListSchema, useMoviesData } from '../../api/Movie';
 import { API_URL } from '../../api/Movie';
 import Loader from '../../ui/Loader/Loader';
 import { useParams, Link } from 'react-router-dom';
 import MoviesList from '../MoviesList/MoviesList';
+import { useState } from 'react';
 import { Button } from '../../ui/Button/Button';
 
 export const FetchGenreMoviesList: React.FC = () => {
@@ -12,7 +13,7 @@ export const FetchGenreMoviesList: React.FC = () => {
   const [visibleMoviesCount, setVisibleMoviesCount] = useState(10);
   const [movies, setMovies] = useState<MovieList>([]);
   const { data, isLoading, isError } = useMoviesData<MovieList>(
-    `${API_URL}movie?genre=${genre}&count=100`,
+    `${API_URL}movie?genre=${genre}&count=1000`,
     MovieListSchema,
   );
 
@@ -30,6 +31,7 @@ export const FetchGenreMoviesList: React.FC = () => {
     .sort((a, b) => b.tmdbRating - a.tmdbRating)
     .slice(0, visibleMoviesCount);
 
+  console.log(movies);
   return (
     <main className="container genre-movies">
       <Link to="/movie/genres">

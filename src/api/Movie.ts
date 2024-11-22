@@ -21,7 +21,7 @@ export const MovieSchema = z.object({
   posterUrl: z.string().nullable().optional(),
   backdropUrl: z.string().nullish(),
   trailerUrl: z.string(),
-  trailerYoutubeId: z.string().nullish(),
+  trailerYouTubeId: z.string().nullish(),
   tmdbRating: z.number(),
   searchL: z.string(),
   keywords: z.array(z.string().optional()),

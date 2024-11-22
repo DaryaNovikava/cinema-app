@@ -30,7 +30,6 @@ export const ButtonLike: React.FC<ButtonLikeProps> = ({ movieId }) => {
         console.error('Ошибка при изменении статуса избранного:', error);
       }
     } else {
-      console.log('Пользователь не авторизован, открываем форму входа.');
       openModal();
     }
   };

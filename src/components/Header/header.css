@@ -1,31 +1,25 @@
-.header {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  padding: 24px 0;
-}
-
-.container {
-  width: 1440px;
-  padding: 0 80px;
-  margin: 0 auto;
-}
-
 .header__box {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 24px 80px;
 }
 
 .header__logo {
   width: 240px;
-  margin-right: 80px;
+}
+
+.header__menu {
+  display: flex;
+  align-items: center;
+  gap: 40px;
 }
 
 .nav__list {
   display: flex;
   align-items: center;
   gap: 40px;
+  margin-right: 20px;
 }
 
 .nav__item {
@@ -44,13 +38,13 @@
 }
 
 .nav__link::after {
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
   bottom: -2px;
   width: 100%;
   height: 1.5px;
-  background-color: #DC5DFC;
+  background-color: #dc5dfc;
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
 }
@@ -60,22 +54,37 @@
 }
 
 .nav__link:active::after {
-    opacity: 1;
-    background-color: #DC5DFC;
+  opacity: 1;
+  background-color: #dc5dfc;
+}
+
+.login_btn {
+  color: #ffffff;
+  transition: color 0.3s ease-in-out;
+}
+
+.login_btn:hover {
+  color: #b4a9ff;
+}
+
+.header__icon {
+  margin: 0;
+  width: 24px;
+  height: 24px;
+}
+
+@media (max-width: 1130px) {
+  .header__menu {
+    gap: 12px;
+  }
+}
+
+@media (max-width: 1060px) {
+  .container {
+    padding: 24px 40px;
   }
 
-  .login_btn {
-    color: #ffffff;
-    transition: color 0.3s ease-in-out;
+  .header__logo {
+    width: 136px;
   }
-
-  .login_btn:hover {
-    color: #B4A9FF;
-  }
-
-
-
-
-/* .nav__link:hover {
-  color: #B4A9FF;
-} */
+}

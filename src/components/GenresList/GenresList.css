@@ -1,6 +1,71 @@
-.genres-list{
+.genres-list {
   display: flex;
   flex-wrap: wrap;
   margin-bottom: 24px;
   gap: 40px;
+}
+
+.genres-list__item {
+  width: calc((100% - 120px) / 4);
+}
+
+@media (max-width: 1360px) {
+  .genres-list {
+    gap: 30px;
+    margin-bottom: 0;
+  }
+
+  .genres-list__item {
+    width: calc((100% - 90px) / 4);
+  }
+
+  @media (max-width: 1325px) {
+    .genres-list__item {
+      width: calc((100% - 90px) / 3);
+    }
+  }
+
+  @media (max-width: 1070px) {
+    .genres-list {
+      gap: 40px;
+    }
+
+    .genres-list__item {
+      width: calc((100% - 120px) / 2);
+    }
+  }
+
+  @media (max-width: 765px) {
+    .genres-list {
+      gap: 30px;
+    }
+
+    .genres-list__item {
+      width: calc((100% - 60px) / 2);
+    }
+  }
+
+  @media (max-width: 710px) {
+    .genres-list__item {
+      width: calc((100% - 40px) / 2);
+    }
+  }
+
+  @media (max-width: 630px) {
+    .genres-list__item {
+      width: calc((100% - 150px));
+    }
+  }
+
+  @media (max-width: 576px) {
+    .genres-list__item {
+      width: calc((100% - 80px));
+    }
+  }
+
+  @media (max-width: 495px) {
+    .genres-list__item {
+      width: 100%;
+    }
+  }
 }

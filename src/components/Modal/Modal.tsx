@@ -6,18 +6,23 @@ interface ModalProps {
   onClose: () => void;
 }
 
-export const Modal:React.FC<ModalProps> = ({ isOpen, onClose }) => {
+export const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
-  return (
+  const handleOutsideClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    if ((event.target as HTMLElement).classList.contains('modal-wrapper')) {
+      onClose();
+    }
+  };
 
-    <div className='modal-wrapper' >
-      <div className='modal-content'>
-      <button className='modal-button' onClick={onClose}></button>
+  return (
+    <div className="modal-wrapper" onClick={handleOutsideClick}>
+      <div className="modal-content">
+        <button className="modal-button" onClick={onClose}></button>
         <AuthForm />
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default Modal;

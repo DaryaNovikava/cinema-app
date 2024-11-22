@@ -10,6 +10,7 @@ import {
   addMovieToFavorites,
   removeMovieFromFavorites,
 } from '../api/Movie';
+import { useAuth } from './AuthContext';
 
 interface FavoritesContextProps {
   favorites: number[];
@@ -24,18 +25,23 @@ const FavoritesContext = createContext<FavoritesContextProps | undefined>(
 export const FavoritesProvider: FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
+  const { isLogged } = useAuth();
   const [favorites, setFavorites] = useState<number[]>([]);
 
   useEffect(() => {
-    getUserFavorites()
-      .then((data) => {
-        const favoriteIds = data.map((item: { id: number }) => item.id);
-        setFavorites(favoriteIds);
-      })
-      .catch((error) =>
-        console.error('Ошибка при загрузке избранных фильмов:', error),
-      );
-  }, []);
+    if (isLogged) {
+      getUserFavorites()
+        .then((data) => {
+          const favoriteIds = data.map((item: { id: number }) => item.id);
+          setFavorites(favoriteIds);
+        })
+        .catch((error) =>
+          console.error('Ошибка при загрузке избранных фильмов:', error),
+        );
+    } else {
+      setFavorites([]);
+    }
+  }, [isLogged]);
 
   const addFavorite = async (movieId: number) => {
     try {

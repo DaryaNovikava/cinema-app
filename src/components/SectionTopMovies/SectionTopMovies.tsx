@@ -6,9 +6,17 @@ import {
   useMoviesData,
 } from '../../api/Movie';
 import Loader from '../../ui/Loader/Loader';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import useResize from '../../utils/useResize';
 import MoviesList from '../MoviesList/MoviesList';
+import CardMain from '../../ui/CardMain/CardMain';
 
 export const SectionTopMovies: React.FC = () => {
+  const { width } = useResize();
+  const showSlider = Boolean(width < 768);
   const {
     data: movies,
     isLoading,
@@ -29,7 +37,39 @@ export const SectionTopMovies: React.FC = () => {
       ) : movies ? (
         <div className="container section-top">
           <h2 className="section__title">Топ 10 фильмов</h2>
-          <MoviesList movies={movies} />
+          {showSlider ? (
+            <div className="movies-slider">
+              <Swiper
+                spaceBetween={1}
+                slidesPerView={1}
+                pagination={{ clickable: true }}
+                navigation
+                breakpoints={{
+                  576: {
+                    slidesPerView: 1,
+                  },
+                  768: {
+                    slidesPerView: 3,
+                  },
+                  1024: {
+                    slidesPerView: 3,
+                  },
+                }}
+              >
+                {movies.map((movie) => (
+                  <SwiperSlide key={movie.id} className="custom-slide">
+                    <CardMain
+                      id={movie.id}
+                      originalTitle={movie.originalTitle}
+                      posterUrl={movie.posterUrl}
+                    />
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </div>
+          ) : (
+            <MoviesList movies={movies} />
+          )}
         </div>
       ) : (
         <div>Movies list is empty</div>

@@ -7,10 +7,16 @@ import { useAuth } from '../../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { MovieList } from '../../api/Movie';
 import MoviesList from '../../components/MoviesList/MoviesList';
+import CardMain from '../../ui/CardMain/CardMain';
 import { getMovieById } from '../../api/Movie';
 import Loader from '../../ui/Loader/Loader';
 import { UserView } from '../../ui/UserView/UserView';
 import { removeMovieFromFavorites } from '../../api/Movie';
+import useResize from '../../utils/useResize';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
 const AccountPage: React.FC = () => {
   const { logout, user } = useAuth();
@@ -22,6 +28,8 @@ const AccountPage: React.FC = () => {
     'favorites',
   );
   const navigate = useNavigate();
+  const { width } = useResize();
+  const isMobile = Boolean(width < 768);
 
   useEffect(() => {
     if (user) {
@@ -82,13 +90,13 @@ const AccountPage: React.FC = () => {
           className="btn-reset btn_tab tab_favourites"
           onClick={() => setActiveTab('favorites')}
         >
-          Избранные фильмы
+          {isMobile ? 'Избранное' : 'Избранные фильмы'}
         </button>
         <button
           className="btn-reset btn_tab tab_settings"
           onClick={() => setActiveTab('settings')}
         >
-          Настройки аккаунта
+          {isMobile ? 'Настройки' : 'Настройки аккаунта'}
         </button>
       </div>
 
@@ -98,6 +106,35 @@ const AccountPage: React.FC = () => {
             <Loader />
           ) : isError ? (
             <div>Ошибка при загрузке фильмов</div>
+          ) : isMobile ? (
+            <div className="movies-slider">
+              <Swiper
+                spaceBetween={16}
+                slidesPerView={1}
+                pagination={{ clickable: true }}
+                navigation
+                breakpoints={{
+                  576: {
+                    slidesPerView: 2,
+                  },
+                  768: {
+                    slidesPerView: 3,
+                  },
+                }}
+              >
+                {favorites.map((movie) => (
+                  <SwiperSlide key={movie.id} className="custom-slide">
+                    <CardMain
+                      id={movie.id}
+                      originalTitle={movie.originalTitle}
+                      posterUrl={movie.posterUrl}
+                      onRemove={handleRemoveMovie}
+                      showRemoveButton={true}
+                    />
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </div>
           ) : (
             <MoviesList
               movies={favorites}

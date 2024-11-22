@@ -8,18 +8,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 630px;
-  max-height: 750px;
-  /* padding: 10px 72px; */
-  background-color: transparent;
+  width: 100vw;
+  max-height: 100vw;
+  background-color: rgba(0, 0, 0, 0.5);
   z-index: 10000;
 }
 
 .modal-content {
   position: relative;
   width: 420px;
-  /* max-height: 680px; */
-  /* padding: 64px 40px; */
   border-radius: 24px;
   background-color: #ffffff;
   display: flex;
@@ -43,7 +40,6 @@
   background-position: center center;
 }
 
-
 .modal-text {
- color: #000000;
+  color: #000000;
 }

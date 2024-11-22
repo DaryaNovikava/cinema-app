@@ -48,3 +48,9 @@ input::-webkit-input-placeholder {
   outline: none;
   box-shadow: none;
 }
+
+@media (max-width: 1367px) {
+  .search-input {
+    width: 320px;
+  }
+}
