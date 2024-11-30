@@ -1,6 +1,6 @@
 import './FetchGenreMoviesList.css';
 import React, { useEffect } from 'react';
-import { MovieList, MovieListSchema, useMoviesData } from '../../api/Movie';
+import { Movie, MovieList } from '../../api/Movie';
 import { API_URL } from '../../api/Movie';
 import Loader from '../../ui/Loader/Loader';
 import { useParams, Link } from 'react-router-dom';
@@ -10,28 +10,47 @@ import { Button } from '../../ui/Button/Button';
 
 export const FetchGenreMoviesList: React.FC = () => {
   const { genre } = useParams<{ genre: string | undefined }>();
-  const [visibleMoviesCount, setVisibleMoviesCount] = useState(10);
   const [movies, setMovies] = useState<MovieList>([]);
-  const { data, isLoading, isError } = useMoviesData<MovieList>(
-    `${API_URL}movie?genre=${genre}&count=1000`,
-    MovieListSchema,
-  );
+  const [page, setPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setError] = useState(false);
+  const [hasMoreMovies, setHasMoreMovies] = useState(true);
 
-  useEffect(() => {
-    if (data) {
-      setMovies(data);
+  const fetchMovies = async () => {
+    if (!hasMoreMovies) return;
+    setIsLoading(true);
+    try {
+      const response = await fetch(
+        `${API_URL}movie?genre=${genre}&count=10&page=${page}`,
+      );
+      const data = await response.json();
+
+      if (data.length > 0) {
+        setMovies((prevMovies) => {
+          const newMovies = data.filter(
+            (newMovie: Movie) =>
+              !prevMovies.some((movie) => movie.id === newMovie.id),
+          );
+          return [...prevMovies, ...newMovies];
+        });
+        setPage((prevPage) => prevPage + 1);
+      } else {
+        setHasMoreMovies(false);
+      }
+    } catch (error) {
+      console.error('Error fetching movies:', error);
+      setError(true);
+    } finally {
+      setIsLoading(false);
     }
-  }, [data]);
-
-  const loadMoreMovies = () => {
-    setVisibleMoviesCount((prevCount) => prevCount + 10);
   };
 
-  const visibleMovies = movies
-    .sort((a, b) => b.tmdbRating - a.tmdbRating)
-    .slice(0, visibleMoviesCount);
+  useEffect(() => {
+    fetchMovies();
+  }, [genre]);
 
-  console.log(movies);
+  const visibleMovies = [...movies].sort((a, b) => b.tmdbRating - a.tmdbRating);
+
   return (
     <main className="container genre-movies">
       <Link to="/movie/genres">
@@ -46,11 +65,11 @@ export const FetchGenreMoviesList: React.FC = () => {
       ) : movies && movies.length > 0 ? (
         <div className="genre-movies__content">
           <MoviesList movies={visibleMovies} />
-          {visibleMoviesCount < movies.length && (
+          {hasMoreMovies && (
             <Button
               type="button"
               kind="primary"
-              onClick={loadMoreMovies}
+              onClick={fetchMovies}
               style={{ width: '218px', alignSelf: 'center' }}
             >
               Показать еще
