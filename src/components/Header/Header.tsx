@@ -1,7 +1,7 @@
 import './header.css';
 import { useState } from 'react';
 import SearchInput from '../../ui/SearchInput/SearchInput';
-import { useEffect } from 'react';
+import { useRef } from 'react';
 import logo from '../../assets/images/logo.svg';
 import genresIcon from '../../assets/images/genres-icon.svg';
 import userIcon from '../../assets/images/user-icon.svg';
@@ -19,6 +19,7 @@ interface HeaderProps {
   onSearchMovie: (event: React.ChangeEvent<HTMLInputElement>) => void;
   isResultsVisible: boolean;
   searchResults: MovieList;
+  onHideResults: () => void;
 }
 
 const Header: React.FC<HeaderProps> = ({
@@ -26,6 +27,7 @@ const Header: React.FC<HeaderProps> = ({
   onSearchMovie,
   isResultsVisible,
   searchResults,
+  onHideResults,
 }) => {
   const { user, isLogged } = useAuth();
   const { isModalOpen, openModal, closeModal } = useModal();
@@ -34,17 +36,24 @@ const Header: React.FC<HeaderProps> = ({
   const isTablet = Boolean(width < 1060);
 
   const [isSearchVisible, setSearchVisible] = useState(false);
+  const searchWrapperRef = useRef<HTMLDivElement | null>(null);
 
   const toggleSearch = () => {
     setSearchVisible((prev) => !prev);
   };
 
-  const handleBlur = () => {
-    setSearchVisible(false);
+  // Закрытие результатов при потере фокуса
+  const handleBlur = (event: React.FocusEvent<HTMLDivElement>) => {
+    if (!searchWrapperRef.current?.contains(event.relatedTarget as Node)) {
+      console.log('Потеря фокуса. Закрываем результаты.');
+      onHideResults();
+      setSearchVisible(false);
+    }
   };
 
   const handleSelectMovie = (id: number) => {
     navigate(`/movie/${id}`);
+    onHideResults();
   };
 
   const handleLoginClick = () => {
@@ -54,12 +63,6 @@ const Header: React.FC<HeaderProps> = ({
       openModal();
     }
   };
-
-  useEffect(() => {
-    if (isLogged && isModalOpen) {
-      closeModal();
-    }
-  }, [isLogged, isModalOpen, closeModal]);
 
   return (
     <header className="header">
@@ -75,7 +78,7 @@ const Header: React.FC<HeaderProps> = ({
         )}
         <div className="header__menu">
           {isTablet && isSearchVisible ? (
-            <div className="search-wrapper">
+            <div className="search-wrapper" ref={searchWrapperRef}>
               <SearchInput
                 value={searchMovie}
                 onChange={onSearchMovie}
@@ -128,7 +131,7 @@ const Header: React.FC<HeaderProps> = ({
                 </ul>
               </nav>
 
-              <div className="search-wrapper">
+              <div className="search-wrapper" ref={searchWrapperRef}>
                 <SearchInput
                   value={searchMovie}
                   onChange={onSearchMovie}

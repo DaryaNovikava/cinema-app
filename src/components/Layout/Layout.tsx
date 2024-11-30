@@ -42,6 +42,12 @@ export const Layout: React.FC = () => {
     setSearchMovie(event.target.value);
   };
 
+  const hideSearchResults = () => {
+    setResultsVisible(false);
+    setSearchMovie('');
+    console.log('Результаты скрыты');
+  };
+
   return (
     <>
       <Header
@@ -49,6 +55,7 @@ export const Layout: React.FC = () => {
         onSearchMovie={handleSearchMovie}
         isResultsVisible={isResultsVisible}
         searchResults={searchResults}
+        onHideResults={hideSearchResults}
       />
       <main>
         <Outlet />
