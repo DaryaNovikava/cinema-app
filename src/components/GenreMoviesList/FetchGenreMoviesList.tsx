@@ -4,9 +4,9 @@ import { Movie, MovieList } from '../../api/Movie';
 import { API_URL } from '../../api/Movie';
 import Loader from '../../ui/Loader/Loader';
 import { useParams, Link } from 'react-router-dom';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import MoviesList from '../MoviesList/MoviesList';
 import { useState } from 'react';
-import { Button } from '../../ui/Button/Button';
 
 export const FetchGenreMoviesList: React.FC = () => {
   const { genre } = useParams<{ genre: string | undefined }>();
@@ -15,10 +15,17 @@ export const FetchGenreMoviesList: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setError] = useState(false);
   const [hasMoreMovies, setHasMoreMovies] = useState(true);
+  const [isPaginating, setIsPaginating] = useState(false);
 
   const fetchMovies = async () => {
-    if (!hasMoreMovies) return;
-    setIsLoading(true);
+    if (!hasMoreMovies || isPaginating) return;
+
+    if (page === 1) {
+      setIsLoading(true);
+    } else {
+      setIsPaginating(true);
+    }
+
     try {
       const response = await fetch(
         `${API_URL}movie?genre=${genre}&count=10&page=${page}`,
@@ -42,6 +49,7 @@ export const FetchGenreMoviesList: React.FC = () => {
       setError(true);
     } finally {
       setIsLoading(false);
+      setIsPaginating(false);
     }
   };
 
@@ -49,7 +57,10 @@ export const FetchGenreMoviesList: React.FC = () => {
     fetchMovies();
   }, [genre]);
 
-  const visibleMovies = [...movies].sort((a, b) => b.tmdbRating - a.tmdbRating);
+  const sortedMoviesOnFirstPage =
+    page === 1
+      ? [...movies].sort((a, b) => b.tmdbRating - a.tmdbRating)
+      : movies;
 
   return (
     <main className="container genre-movies">
@@ -63,19 +74,21 @@ export const FetchGenreMoviesList: React.FC = () => {
       ) : isError ? (
         <div>Error fetching movies</div>
       ) : movies && movies.length > 0 ? (
-        <div className="genre-movies__content">
-          <MoviesList movies={visibleMovies} />
-          {hasMoreMovies && (
-            <Button
-              type="button"
-              kind="primary"
-              onClick={fetchMovies}
-              style={{ width: '218px', alignSelf: 'center' }}
-            >
-              Показать еще
-            </Button>
-          )}
-        </div>
+        <InfiniteScroll
+          dataLength={movies.length}
+          next={fetchMovies}
+          hasMore={hasMoreMovies}
+          loader={<Loader />}
+          scrollThreshold={0.7}
+          style={{ overflow: 'visible' }}
+          endMessage={
+            <p style={{ textAlign: 'center', marginTop: '20px' }}>
+              You have seen all movies.
+            </p>
+          }
+        >
+          <MoviesList movies={sortedMoviesOnFirstPage} />
+        </InfiniteScroll>
       ) : (
         <div className="genre-movies-empty">
           <p className="genre-movies-empty__title">Movies list is empty</p>
