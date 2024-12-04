@@ -1,0 +1,10 @@
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import './Footer.css';
+import vk from '../../assets/images/vk.svg';
+import youtube from '../../assets/images/youtube.svg';
+import ok from '../../assets/images/ok.svg';
+import telegram from '../../assets/images/telegram.svg';
+const Footer = () => {
+    return (_jsx("footer", { className: "footer container", children: _jsxs("div", { className: "footer-container", children: [_jsxs("div", { className: "footer-info", children: [_jsx("p", { className: "footer-info__company", children: "LLC \u00AB\u041C\u0443\u043B\u044C\u0442\u0438\u043C\u0435\u0434\u0438\u0430 \u0412\u0438\u0437\u0438\u043E\u043D\u00BB" }), _jsx("p", { className: "footer-info__copyright", children: "\u0412\u0441\u0435 \u043F\u0440\u0430\u0432\u0430 \u0437\u0430\u0449\u0438\u0449\u0435\u043D\u044B " })] }), _jsxs("ul", { className: "social-list list-reset", children: [_jsx("li", { className: "social-list__item", children: _jsx("a", { href: "#", className: "social-list__link", "aria-label": "\u0412\u043A\u043E\u043D\u0442\u0430\u043A\u0442\u0435", children: _jsx("img", { src: vk, alt: "\u0412\u043A\u043E\u043D\u0442\u0430\u043A\u0442\u0435", className: "social-icon" }) }) }), _jsx("li", { className: "social-list__item", children: _jsx("a", { href: "#", className: "social-list__link", "aria-label": "Youtube", children: _jsx("img", { src: youtube, alt: "Youtube", className: "social-icon" }) }) }), _jsx("li", { className: "social-list__item", children: _jsx("a", { href: "#", className: "social-list__link", "aria-label": "\u041E\u0434\u043D\u043E\u043A\u043B\u0430\u0441\u0441\u043D\u0438\u043A\u0438", children: _jsx("img", { src: ok, alt: "\u041E\u0434\u043D\u043E\u043A\u043B\u0430\u0441\u0441\u043D\u0438\u043A\u0438", className: "social-icon" }) }) }), _jsx("li", { className: "social-list__item", children: _jsx("a", { href: "#", className: "social-list__link", "aria-label": "\u0422\u0435\u043B\u0435\u0433\u0440\u0430\u043C", children: _jsx("img", { src: telegram, alt: "\u0422\u0435\u043B\u0435\u0433\u0440\u0430\u043C", className: "social-icon" }) }) })] })] }) }));
+};
+export default Footer;
