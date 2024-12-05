@@ -9,23 +9,20 @@ import GenreMoviesPage from './pages/GenreMoviesPage/GenreMoviesPage';
 import AccountPage from './pages/AccountPage/AccountPage';
 import { AuthProvider } from './contexts/AuthContext';
 import { ModalProvider } from './contexts/ModalContext';
-import { FavoritesProvider } from './contexts/FavouritesContext';
+import { FavoritesProvider} from './contexts/FavouritesContext';
 
 export const App: React.FC = () => {
   return (
-    <BrowserRouter basename="/cinema-app">
+    <BrowserRouter>
       <AuthProvider>
         <FavoritesProvider>
           <ModalProvider>
             <Routes>
-              <Route path="/" element={<Layout />}>
+              <Route path="/" element={<Layout/>}>
                 <Route index element={<MainPage />} />
                 <Route path="movie/:movieId" element={<MoviePage />} />
                 <Route path="movie/genres" element={<GenresPage />} />
-                <Route
-                  path="movie/genres/:genre"
-                  element={<GenreMoviesPage />}
-                />
+                <Route path="movie/genres/:genre" element={<GenreMoviesPage />} />
                 <Route path="/account/:userSurname" element={<AccountPage />} />
               </Route>
             </Routes>
@@ -33,7 +30,7 @@ export const App: React.FC = () => {
         </FavoritesProvider>
       </AuthProvider>
     </BrowserRouter>
-  );
-};
+  )
+}
 
-export default App;
+export default App
