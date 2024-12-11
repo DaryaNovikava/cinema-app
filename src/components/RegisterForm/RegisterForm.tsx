@@ -14,17 +14,24 @@ export interface IRegisterFormProps {
   onRegistrationSuccess?: () => void;
 }
 
-const CreateRegisterFormSchema = z.object({
-  name: z
-    .string()
-    .min(5, 'Длина имени пользователя должна быть не менее 5 символов'),
-  surname: z
-    .string()
-    .min(5, 'Длина имени пользователя должна быть не менее 5 символов'),
-  email: z.string().email('Неверный формат email'),
-  password: z.string().min(8, 'Длина пароля должна быть не менее 8 символов'),
-  // password: z.string().min(8, "Длина пароля должна быть не менее 8 символов"),
-});
+const CreateRegisterFormSchema = z
+  .object({
+    name: z
+      .string()
+      .min(5, 'Длина имени пользователя должна быть не менее 5 символов'),
+    surname: z
+      .string()
+      .min(5, 'Длина имени пользователя должна быть не менее 5 символов'),
+    email: z.string().email('Неверный формат email'),
+    password: z.string().min(8, 'Длина пароля должна быть не менее 8 символов'),
+    confirmPassword: z
+      .string()
+      .min(8, 'Длина пароля должна быть не менее 8 символов'),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: 'Пароли не совпадают',
+    path: ['confirmPassword'],
+  });
 
 type CreateRegisterForm = z.infer<typeof CreateRegisterFormSchema>;
 
@@ -102,12 +109,12 @@ export const RegisterForm: FC<IRegisterFormProps> = ({
         />
       </FormField>
 
-      <FormField errorMessage={errors.password?.message}>
+      <FormField errorMessage={errors.confirmPassword?.message}>
         <input
           type="password"
           placeholder="Подтвердите пароль"
-          className={`form-input form-input_last form-input_password ${errors.password ? 'input-error' : ''}`}
-          {...register('password', { required: true })}
+          className={`form-input form-input_last form-input_password ${errors.confirmPassword ? 'input-error' : ''}`}
+          {...register('confirmPassword', { required: true })}
         />
       </FormField>
 

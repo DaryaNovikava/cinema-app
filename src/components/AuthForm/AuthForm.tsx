@@ -6,16 +6,16 @@ import logo from '../../assets/images/logo.svg';
 import { User } from '../../api/User';
 import { useAuth } from '../../contexts/AuthContext';
 import { Button } from '../../ui/Button/Button';
-import { useModalContext } from '../../contexts/ModalContext';
 
-interface AuthFormProps {}
+interface AuthFormProps {
+  onClose: () => void;
+}
 
-export const AuthForm: React.FC<AuthFormProps> = () => {
+export const AuthForm: React.FC<AuthFormProps> = ({ onClose }) => {
   const [authType, setAuthType] = useState<string>('register');
   const [isRegistrationSuccess, setIsRegistrationSuccess] =
     useState<boolean>(false);
   const { login } = useAuth();
-  const { closeModal } = useModalContext();
 
   const handleClick = () => {
     setAuthType((prevState) =>
@@ -31,7 +31,7 @@ export const AuthForm: React.FC<AuthFormProps> = () => {
   const handleLoginSuccess = (user: User) => {
     console.log('Login successful:', user);
     login(user);
-    closeModal();
+    onClose();
   };
 
   return (

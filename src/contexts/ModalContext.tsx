@@ -1,4 +1,12 @@
-import React, { createContext, useContext, useState, FC } from 'react';
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useCallback,
+  FC,
+  useEffect,
+} from 'react';
+import { useAuth } from './AuthContext';
 
 interface ModalContextType {
   isModalOpen: boolean;
@@ -12,10 +20,22 @@ export const ModalProvider: FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const { isLogged } = useAuth();
   const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
 
+  const closeModal = useCallback(() => {
+    setIsModalOpen(false);
+  }, []);
+
+  useEffect(() => {
+    if (isLogged) {
+      closeModal();
+    }
+  }, [isLogged, closeModal]);
+
+  useEffect(() => {
+    console.log('ModalProvider: isModalOpen обновился на:', isModalOpen);
+  }, [isModalOpen]);
   return (
     <ModalContext.Provider value={{ isModalOpen, openModal, closeModal }}>
       {children}
