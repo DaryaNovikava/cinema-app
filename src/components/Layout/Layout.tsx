@@ -3,6 +3,7 @@ import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import Modal from '../Modal/Modal';
 import { useModalContext } from '../../contexts/ModalContext';
+import { useAuth } from '../../contexts/AuthContext';
 import React, { useEffect, useState } from 'react';
 import {
   API_URL,
@@ -16,6 +17,13 @@ export const Layout: React.FC = () => {
   const [searchMovie, setSearchMovie] = useState<string>('');
   const [searchResults, setSearchResults] = useState<MovieList>([]);
   const [isResultsVisible, setResultsVisible] = useState<boolean>(false);
+  const { user } = useAuth();
+
+  useEffect(() => {
+    if (user) {
+      closeModal();
+    }
+  }, [user, closeModal]);
 
   useEffect(() => {
     const searchMoviesByTitle = async () => {
@@ -61,6 +69,7 @@ export const Layout: React.FC = () => {
         <Outlet />
       </main>
       <Footer />
+
       <Modal isOpen={isModalOpen} onClose={closeModal} />
     </>
   );

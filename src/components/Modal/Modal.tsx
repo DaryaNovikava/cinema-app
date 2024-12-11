@@ -16,10 +16,13 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
   };
 
   return (
-    <div className="modal-wrapper" onClick={handleOutsideClick}>
+    <div
+      className={`modal-wrapper ${isOpen ? '' : 'hidden'}`}
+      onClick={handleOutsideClick}
+    >
       <div className="modal-content">
         <button className="modal-button" onClick={onClose}></button>
-        <AuthForm />
+        <AuthForm onClose={onClose} />
       </div>
     </div>
   );
