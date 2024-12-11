@@ -25,11 +25,11 @@ export const MovieInfoTable: React.FC<MovieInfoTableProps> = ({
 
   return (
     <div className="movie-info-table">
-      <h2 className="movie-info-table__title">О фильме</h2>
+      <h2 className="movie-info-table__title">About the film</h2>
       <table className="movie-info-table__table">
         <tbody>
           <tr className="movie-info-table__row">
-            <td className="movie-info-table__label">Язык оригинала</td>
+            <td className="movie-info-table__label">Original language</td>
             <td
               className={`movie-info-table__dots ${isMobile ? 'hidden__dots' : 'dots__visible'}`}
             ></td>
@@ -37,7 +37,7 @@ export const MovieInfoTable: React.FC<MovieInfoTableProps> = ({
           </tr>
           {budget && (
             <tr className="movie-info-table__row">
-              <td className="movie-info-table__label">Бюджет</td>
+              <td className="movie-info-table__label">Budget</td>
               <td
                 className={`movie-info-table__dots ${isMobile ? 'hidden__dots' : 'dots__visible'}`}
               ></td>
@@ -48,7 +48,7 @@ export const MovieInfoTable: React.FC<MovieInfoTableProps> = ({
           )}
           {revenue && (
             <tr className="movie-info-table__row">
-              <td className="movie-info-table__label">Выручка</td>
+              <td className="movie-info-table__label">Revenue</td>
               <td
                 className={`movie-info-table__dots ${isMobile ? 'hidden__dots' : 'dots__visible'}`}
               ></td>
@@ -59,7 +59,7 @@ export const MovieInfoTable: React.FC<MovieInfoTableProps> = ({
           )}
           {director && (
             <tr className="movie-info-table__row">
-              <td className="movie-info-table__label">Режиссер</td>
+              <td className="movie-info-table__label">Director</td>
               <td
                 className={`movie-info-table__dots ${isMobile ? 'hidden__dots' : 'dots__visible'}`}
               ></td>
@@ -68,7 +68,7 @@ export const MovieInfoTable: React.FC<MovieInfoTableProps> = ({
           )}
           {production && (
             <tr className="movie-info-table__row">
-              <td className="movie-info-table__label">Продашен</td>
+              <td className="movie-info-table__label">Production</td>
               <td
                 className={`movie-info-table__dots ${isMobile ? 'hidden__dots' : 'dots__visible'}`}
               ></td>
@@ -77,7 +77,7 @@ export const MovieInfoTable: React.FC<MovieInfoTableProps> = ({
           )}
           {awardsSummary && (
             <tr className="movie-info-table__row">
-              <td className="movie-info-table__label">Награды</td>
+              <td className="movie-info-table__label">Awards</td>
               <td
                 className={`movie-info-table__dots ${isMobile ? 'hidden__dots' : 'dots__visible'}`}
               ></td>

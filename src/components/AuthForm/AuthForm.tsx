@@ -43,15 +43,13 @@ export const AuthForm: React.FC<AuthFormProps> = ({ onClose }) => {
       />
       <p className="auth-form__title">
         {isRegistrationSuccess
-          ? 'Регистрация завершена'
+          ? 'Registration completed'
           : authType === 'register'
-            ? 'Регистрация'
+            ? 'Registration'
             : ''}
       </p>
       {isRegistrationSuccess ? (
-        <p className="registration-success">
-          Используйте вашу электронную почту для входа
-        </p>
+        <p className="registration-success">Use your email to sign in</p>
       ) : authType === 'register' ? (
         <RegisterForm onRegistrationSuccess={handleRegistrationSuccess} />
       ) : (
@@ -61,7 +59,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({ onClose }) => {
       <div className="auth-form__info">
         {!isRegistrationSuccess && (
           <button onClick={handleClick} className="auth-form__link btn-reset">
-            {authType === 'register' ? 'У меня есть пароль' : 'Регистрация'}
+            {authType === 'register' ? 'I have a password' : 'Registration'}
           </button>
         )}
         {isRegistrationSuccess && (
@@ -71,7 +69,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({ onClose }) => {
             onClick={handleClick}
             style={{ width: '300px' }}
           >
-            Войти
+            Enter
           </Button>
         )}
       </div>

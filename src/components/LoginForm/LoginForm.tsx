@@ -91,7 +91,7 @@ export const LoginForm: FC<ILoginFormProps> = ({ onLoginSuccess }) => {
       {serverError && <span className="error-message">{serverError}</span>}
 
       <Button type="submit" isLoading={createLoginMutation.isPending}>
-        Войти
+        Login
       </Button>
     </form>
   );

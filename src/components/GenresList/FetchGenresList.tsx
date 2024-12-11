@@ -20,7 +20,7 @@ export const FetchGenresList: React.FC = () => {
         <div>Error fetching genres</div>
       ) : genres ? (
         <>
-          <h2 className="genres__title">Жанры фильмов</h2>
+          <h2 className="genres__title">Movie Genres</h2>
           <GenresList genres={genres} />
         </>
       ) : (
