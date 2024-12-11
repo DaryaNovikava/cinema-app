@@ -84,19 +84,19 @@ const AccountPage: React.FC = () => {
 
   return (
     <div className=" container account-page">
-      <h1 className="account__title">Мой аккаунт</h1>
+      <h1 className="account__title">My account</h1>
       <div className="account__tabs">
         <button
           className="btn-reset btn_tab tab_favourites"
           onClick={() => setActiveTab('favorites')}
         >
-          {isMobile ? 'Избранное' : 'Избранные фильмы'}
+          {isMobile ? 'Featured' : 'Featured Movies'}
         </button>
         <button
           className="btn-reset btn_tab tab_settings"
           onClick={() => setActiveTab('settings')}
         >
-          {isMobile ? 'Настройки' : 'Настройки аккаунта'}
+          {isMobile ? 'Settings' : 'Account settings'}
         </button>
       </div>
 
@@ -105,7 +105,7 @@ const AccountPage: React.FC = () => {
           (isLoading ? (
             <Loader />
           ) : isError ? (
-            <div>Ошибка при загрузке фильмов</div>
+            <div>Error loading movies</div>
           ) : isMobile ? (
             <div className="movies-slider">
               <Swiper
@@ -152,7 +152,7 @@ const AccountPage: React.FC = () => {
                   userSurname={user?.surname}
                 ></UserView>
                 <div className="user_name">
-                  <p className="user-name_surname">Имя Фамилия</p>
+                  <p className="user-name_surname">Name Surname</p>
                   <p className="user-name-data">
                     {' '}
                     {`${user?.name} ${user?.surname}`}
@@ -165,7 +165,7 @@ const AccountPage: React.FC = () => {
                   <div className="user-view__email" />
                 </div>
                 <div className="user_name">
-                  <p className="user-name_surname">Электронная почта</p>
+                  <p className="user-name_surname">E-mail</p>
                   <p className="user-name-data">{user?.email}</p>
                 </div>
               </div>
@@ -177,7 +177,7 @@ const AccountPage: React.FC = () => {
               onClick={handleLogout}
               style={{ width: '262px' }}
             >
-              Выход из аккаунта
+              Logout
             </Button>
           </div>
         )}

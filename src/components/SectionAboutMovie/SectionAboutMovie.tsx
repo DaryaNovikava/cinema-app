@@ -105,7 +105,7 @@ export const SectionAboutMovie: React.FC<SectionAboutMovieProps> = ({
                   onClick={handleTrailerClick}
                   style={{ width: '171px' }}
                 >
-                  Трейлер
+                  Trailer
                 </Button>
                 {!hideAboutButton && (
                   <Button
@@ -114,7 +114,7 @@ export const SectionAboutMovie: React.FC<SectionAboutMovieProps> = ({
                     onClick={handleAboutClick}
                     style={{ width: '171px' }}
                   >
-                    О фильме
+                    About
                   </Button>
                 )}
                 <ButtonLike movieId={movie.id} />

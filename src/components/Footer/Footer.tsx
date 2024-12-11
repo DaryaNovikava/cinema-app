@@ -9,8 +9,8 @@ const Footer: React.FC = () => {
     <footer className="footer container">
       <div className="footer-container">
         <div className="footer-info">
-          <p className="footer-info__company">LLC «Мультимедиа Визион»</p>
-          <p className="footer-info__copyright">Все права защищены </p>
+          <p className="footer-info__company">LLC "Multimedia Vision"</p>
+          <p className="footer-info__copyright">All rights reserved </p>
         </div>
         <ul className="social-list list-reset">
           <li className="social-list__item">

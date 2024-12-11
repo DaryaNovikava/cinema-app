@@ -121,7 +121,7 @@ export const RegisterForm: FC<IRegisterFormProps> = ({
       {serverError && <span className="error-message">{serverError}</span>}
 
       <Button type="submit" isLoading={createRegisterMutation.isPending}>
-        Создать аккаунт
+        Create an account
       </Button>
     </form>
   );

@@ -120,12 +120,12 @@ const Header: React.FC<HeaderProps> = ({
                 <ul className="nav__list list-reset">
                   <li className="nav__item">
                     <Link to="/" className="nav__link">
-                      Главная
+                      Home
                     </Link>
                   </li>
                   <li className="nav__item">
                     <Link to="/movie/genres" className="nav__link">
-                      Жанры
+                      Genres
                     </Link>
                   </li>
                 </ul>
@@ -149,7 +149,7 @@ const Header: React.FC<HeaderProps> = ({
                 className="btn-reset nav__link login_btn"
                 onClick={handleLoginClick}
               >
-                {isLogged && user ? `${user.name}` : 'Войти'}
+                {isLogged && user ? `${user.name}` : 'Enter'}
               </button>
             </>
           )}

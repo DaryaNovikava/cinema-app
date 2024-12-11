@@ -31,12 +31,12 @@ export const SectionTopMovies: React.FC = () => {
         </div>
       ) : isError ? (
         <div className="container">
-          <h2 className="section__title">Топ 10 фильмов</h2>
+          <h2 className="section__title">Top 10 Movies</h2>
           <p>Error fetching movies </p>
         </div>
       ) : movies ? (
         <div className="container section-top">
-          <h2 className="section__title">Топ 10 фильмов</h2>
+          <h2 className="section__title">Top 10 Movies</h2>
           {showSlider ? (
             <div className="movies-slider">
               <Swiper
