@@ -16,20 +16,18 @@ export interface IRegisterFormProps {
 
 const CreateRegisterFormSchema = z
   .object({
-    name: z
+    name: z.string().min(5, 'Username length must be at least 5 characters'),
+    surname: z.string().min(5, 'Username length must be at least 5 characters'),
+    email: z.string().email('Invalid format email'),
+    password: z
       .string()
-      .min(5, 'Длина имени пользователя должна быть не менее 5 символов'),
-    surname: z
-      .string()
-      .min(5, 'Длина имени пользователя должна быть не менее 5 символов'),
-    email: z.string().email('Неверный формат email'),
-    password: z.string().min(8, 'Длина пароля должна быть не менее 8 символов'),
+      .min(8, 'The password length must be at least 8 characters.'),
     confirmPassword: z
       .string()
-      .min(8, 'Длина пароля должна быть не менее 8 символов'),
+      .min(8, 'The password length must be at least 8 characters.'),
   })
   .refine((data) => data.password === data.confirmPassword, {
-    message: 'Пароли не совпадают',
+    message: 'The passwords do not match',
     path: ['confirmPassword'],
   });
 
@@ -61,8 +59,7 @@ export const RegisterForm: FC<IRegisterFormProps> = ({
       },
       onError: (error: any) => {
         setServerError(
-          error.message ||
-            'Произошла ошибка при регистрации. Пожалуйста, попробуйте еще раз.',
+          error.message || 'There was an error registering. Please try again.',
         );
       },
     },
@@ -78,7 +75,7 @@ export const RegisterForm: FC<IRegisterFormProps> = ({
     >
       <FormField errorMessage={errors.email?.message}>
         <input
-          placeholder="Электронная почта"
+          placeholder="E-mail"
           className={`form-input form-input_mail ${errors.email ? 'input-error' : ''}`}
           {...register('email', { required: true })}
         />
@@ -86,7 +83,7 @@ export const RegisterForm: FC<IRegisterFormProps> = ({
 
       <FormField errorMessage={errors.name?.message}>
         <input
-          placeholder="Имя"
+          placeholder="Name"
           className={`form-input form-input_name ${errors.name ? 'input-error' : ''}`}
           {...register('name', { required: true })}
         />
@@ -94,7 +91,7 @@ export const RegisterForm: FC<IRegisterFormProps> = ({
 
       <FormField errorMessage={errors.surname?.message}>
         <input
-          placeholder="Фамилия"
+          placeholder="Surname"
           className={`form-input form-input_name ${errors.surname ? 'input-error' : ''}`}
           {...register('surname', { required: true })}
         />
@@ -103,7 +100,7 @@ export const RegisterForm: FC<IRegisterFormProps> = ({
       <FormField errorMessage={errors.password?.message}>
         <input
           type="password"
-          placeholder="Пароль"
+          placeholder="Password"
           className={`form-input form-input_password ${errors.password ? 'input-error' : ''}`}
           {...register('password', { required: true })}
         />
@@ -112,7 +109,7 @@ export const RegisterForm: FC<IRegisterFormProps> = ({
       <FormField errorMessage={errors.confirmPassword?.message}>
         <input
           type="password"
-          placeholder="Подтвердите пароль"
+          placeholder="Confirm password"
           className={`form-input form-input_last form-input_password ${errors.confirmPassword ? 'input-error' : ''}`}
           {...register('confirmPassword', { required: true })}
         />
@@ -121,7 +118,7 @@ export const RegisterForm: FC<IRegisterFormProps> = ({
       {serverError && <span className="error-message">{serverError}</span>}
 
       <Button type="submit" isLoading={createRegisterMutation.isPending}>
-        Create an account
+        Create account
       </Button>
     </form>
   );
