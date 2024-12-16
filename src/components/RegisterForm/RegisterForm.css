@@ -12,7 +12,7 @@
 .form-input {
   padding: 16px 24px 16px 48px;
   border-radius: 8px;
-  border: 1px solid rgba(0, 0, 0, 0.40);
+  border: 1px solid rgba(0, 0, 0, 0.4);
   background-color: #ffffff;
   font-size: 18px;
   font-style: normal;
@@ -35,7 +35,6 @@ input::-webkit-input-placeholder {
 
 .form-input_name {
   background-image: url(../../assets/images/name-icon.svg);
-
 }
 
 .form-input_password {
@@ -48,15 +47,18 @@ input::-webkit-input-placeholder {
 
 .input-error {
   border-color: red;
-
 }
 
 .error-message {
-  display: none;
+  /* display: none; */
+  color: red;
+  font-size: 1rem;
 }
 
 .form-field__error-text {
-  display: none;
+  /* display: none; */
+  color: red;
+  font-size: 0.8rem;
 }
 
 .input-error.form-input_mail {
@@ -70,4 +72,3 @@ input::-webkit-input-placeholder {
 .input-error.form-input_password {
   background-image: url(../../assets//images/password-icon-error.svg);
 }
-
