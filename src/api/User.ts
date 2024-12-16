@@ -69,7 +69,7 @@ export function loginUser(data: {
   })
     .then((response) => validateResponse(response))
     .catch((error) => {
-      console.error('Ошибка авторизации:', error);
+      console.error('Authorization error');
       throw error;
     });
 }
@@ -80,7 +80,6 @@ export function registerUser(data: {
   email: string;
   password: string;
 }): Promise<void> {
-  console.log('Отправляем запрос на регистрацию пользователя', data);
   return fetch(`${API_URL}user`, {
     method: 'POST',
     headers: {
@@ -97,11 +96,9 @@ export function registerUser(data: {
     })
     .catch((error) => {
       if (error.status === 409) {
-        throw new Error('Пользователь с таким email уже существует.');
+        throw new Error('Account with this Email already exists.');
       } else {
-        throw new Error(
-          'Произошла ошибка при регистрации. Попробуйте еще раз.',
-        );
+        throw new Error('There was an error registering. Please try again.');
       }
     });
 }

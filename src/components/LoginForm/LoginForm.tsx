@@ -16,8 +16,10 @@ export interface ILoginFormProps {
 }
 
 const CreateLoginFormSchema = z.object({
-  email: z.string().email('Неверный формат email'),
-  password: z.string().min(8, 'Длина пароля должна быть не менее 8 символов'),
+  email: z.string().email('Invalid format email'),
+  password: z
+    .string()
+    .min(8, 'The password length must be at least 8 character'),
 });
 
 type CreateLoginForm = z.infer<typeof CreateLoginFormSchema>;
@@ -50,19 +52,18 @@ export const LoginForm: FC<ILoginFormProps> = ({ onLoginSuccess }) => {
           }
           queryClient.invalidateQueries({ queryKey: ['users', 'me'] });
         } catch (error) {
-          setServerError('Не удалось получить профиль пользователя.');
+          setServerError('Failed to get user profile.');
         }
       },
       onError: (error: any) => {
         setServerError(
-          error.message ||
-            'Произошла ошибка входа. Пожалуйста, попробуйте еще раз.',
+          error.message || 'There was an error login. Please try again.',
         );
       },
     },
     queryClient,
   );
-
+  console.log(serverError);
   return (
     <form
       className="login-form"
@@ -73,7 +74,7 @@ export const LoginForm: FC<ILoginFormProps> = ({ onLoginSuccess }) => {
     >
       <FormField errorMessage={errors.email?.message}>
         <input
-          placeholder="Электронная почта"
+          placeholder="E-mail"
           className={`form-input form-input_mail ${errors.email ? 'input-error' : ''}`}
           {...register('email', { required: true })}
         />
@@ -82,7 +83,7 @@ export const LoginForm: FC<ILoginFormProps> = ({ onLoginSuccess }) => {
       <FormField errorMessage={errors.password?.message}>
         <input
           type="password"
-          placeholder="Пароль"
+          placeholder="Password"
           className={`form-input form-input_password ${errors.password ? 'input-error' : ''}`}
           {...register('password', { required: true })}
         />
